@@ -1,0 +1,119 @@
+aid: vincario
+url: https://raw.githubusercontent.com/api-evangelist/vincario/refs/heads/main/apis.yml
+name: Vincario
+kind: company
+description: Vincario operates the vindecoder.eu VIN Decoder API, a global REST service
+  that decodes a Vehicle Identification Number (VIN) into a full vehicle specification
+  and provides vehicle market value, stolen-vehicle checks, and account balance. Requests
+  are authenticated with an API key plus a SHA1 control sum embedded in the URL path.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- VIN
+- Vehicle Data
+- Automotive
+- VIN Decoder
+- Market Value
+created: '2026-06-21'
+modified: '2026-06-21'
+specificationVersion: '0.19'
+apis:
+- aid: vincario:vin-decode-api
+  name: Vincario VIN Decode API
+  tags:
+  - VIN
+  - Decode
+  - Vehicle Specification
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://vindecoder.eu/api
+  baseURL: https://api.vindecoder.eu/3.2
+  properties:
+  - url: https://vindecoder.eu/api
+    type: Documentation
+  - url: https://vindecoder.eu/api
+    type: APIReference
+  - url: openapi/vincario-openapi.yml
+    type: OpenAPI
+  description: Decodes a 17-character VIN into a full vehicle specification (make, model,
+    model year, body, engine, fuel, transmission and ~40 European-market data points)
+    returned as JSON or HTML.
+- aid: vincario:market-value-api
+  name: Vincario Vehicle Market Value API
+  tags:
+  - Market Value
+  - Pricing
+  - Valuation
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://vindecoder.eu/vehicle-market-value
+  baseURL: https://api.vindecoder.eu/3.2
+  properties:
+  - url: https://vindecoder.eu/vehicle-market-value
+    type: Documentation
+  - url: openapi/vincario-openapi.yml
+    type: OpenAPI
+  description: Returns statistical market data (price and odometer) for vehicles matching
+    a decoded VIN, including the input parameters used for the computation.
+- aid: vincario:stolen-check-api
+  name: Vincario Stolen Check API
+  tags:
+  - Stolen Check
+  - Fraud
+  - Police Database
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://vindecoder.eu/api
+  baseURL: https://api.vindecoder.eu/3.2
+  properties:
+  - url: https://vindecoder.eu/api
+    type: Documentation
+  - url: openapi/vincario-openapi.yml
+    type: OpenAPI
+  description: Performs a real-time check of a VIN against national police databases
+    of stolen vehicles (Czech Republic, Hungary, Lithuania, Romania, Slovenia, Slovakia)
+    and Vincario's own database of stolen vehicles.
+- aid: vincario:vehicle-info-api
+  name: Vincario Vehicle Info API
+  tags:
+  - Vehicle Info
+  - Metadata
+  - Capabilities
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://vindecoder.eu/api
+  baseURL: https://api.vindecoder.eu/3.2
+  properties:
+  - url: https://vindecoder.eu/api
+    type: Documentation
+  - url: openapi/vincario-openapi.yml
+    type: OpenAPI
+  description: Returns the list of vehicle details that can be decoded for a given VIN
+    by the decode service; this informational lookup is free of charge.
+- aid: vincario:account-balance-api
+  name: Vincario Account Balance API
+  tags:
+  - Account
+  - Balance
+  - Credits
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://vindecoder.eu/api
+  baseURL: https://api.vindecoder.eu/3.2
+  properties:
+  - url: https://vindecoder.eu/api
+    type: Documentation
+  - url: openapi/vincario-openapi.yml
+    type: OpenAPI
+  description: Returns the remaining API credits/balance for each service on the authenticated
+    account.
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/vincario
+- type: Website
+  url: https://vincario.com
+- type: Documentation
+  url: https://vindecoder.eu/api
+- type: Plans
+  url: plans/vincario-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/vincario-rate-limits.yml
+- type: FinOps
+  url: finops/vincario-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

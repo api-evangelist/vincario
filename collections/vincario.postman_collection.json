@@ -1,0 +1,181 @@
+{
+  "info": {
+    "name": "Vincario VIN Decoder API",
+    "description": "REST API for the vindecoder.eu service operated by Vincario. Authenticated with an API key (id) plus a per-request SHA1 control sum embedded in the URL path: substr(sha1(\"{lookup}|{id}|{apikey}|{secretkey}\"),0,10). The secret key is never transmitted.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.vindecoder.eu/3.2"
+    },
+    {
+      "key": "apikey",
+      "value": ""
+    },
+    {
+      "key": "controlsum",
+      "value": ""
+    },
+    {
+      "key": "vin",
+      "value": "WF0MXXGBWM8R43240"
+    }
+  ],
+  "item": [
+    {
+      "name": "Decode",
+      "item": [
+        {
+          "name": "Decode a VIN into a full vehicle specification.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apikey}}/{{controlsum}}/decode/{{vin}}.json",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apikey}}",
+                "{{controlsum}}",
+                "decode",
+                "{{vin}}.json"
+              ]
+            },
+            "description": "Decodes a 17-character VIN and returns the full vehicle specification. Control sum = substr(sha1(\"{VIN}|decode|{apikey}|{secretkey}\"),0,10)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Vehicle Info",
+      "item": [
+        {
+          "name": "List the vehicle details available for a VIN.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apikey}}/{{controlsum}}/vininfo/{{vin}}.json",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apikey}}",
+                "{{controlsum}}",
+                "vininfo",
+                "{{vin}}.json"
+              ]
+            },
+            "description": "Returns the list of vehicle details that can be decoded for the VIN (free of charge). Control sum = substr(sha1(\"{VIN}|vininfo|{apikey}|{secretkey}\"),0,10)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Market Value",
+      "item": [
+        {
+          "name": "Get statistical market value for a vehicle.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apikey}}/{{controlsum}}/vehicle-market-value/{{vin}}.json",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apikey}}",
+                "{{controlsum}}",
+                "vehicle-market-value",
+                "{{vin}}.json"
+              ]
+            },
+            "description": "Returns statistical price and odometer data for matching vehicles on the market. Control sum = substr(sha1(\"{VIN}|vehicle-market-value|{apikey}|{secretkey}\"),0,10)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Stolen Check",
+      "item": [
+        {
+          "name": "Check a VIN against stolen-vehicle databases.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apikey}}/{{controlsum}}/stolencheck/{{vin}}.json",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apikey}}",
+                "{{controlsum}}",
+                "stolencheck",
+                "{{vin}}.json"
+              ]
+            },
+            "description": "Real-time check against national police stolen-vehicle databases and Vincario's own database. Control sum = substr(sha1(\"{VIN}|stolencheck|{apikey}|{secretkey}\"),0,10)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Account",
+      "item": [
+        {
+          "name": "Get remaining account balance.",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/{{apikey}}/{{controlsum}}/balance.json",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "{{apikey}}",
+                "{{controlsum}}",
+                "balance.json"
+              ]
+            },
+            "description": "Returns remaining credits per service. Control sum = substr(sha1(\"{apikey}|balance|{apikey}|{secretkey}\"),0,10)."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

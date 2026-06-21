@@ -1,0 +1,221 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Vincario
+providerId: vincario
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: true
+tags:
+- VIN
+- Vehicle Data
+- Automotive
+- VIN Decoder
+- Market Value
+- Plans
+description: >-
+  Vincario's vindecoder.eu API uses subscription-style, volume-tiered per-request
+  pricing in EUR. New accounts get 20 free VIN lookups to test the service. The VIN
+  Decode price drops as committed volume rises; Vehicle Market Value and Stolen
+  Check are priced on a separate, higher per-request tier. Vehicle Info (list of
+  decodable details) is free. Invalid VINs are not charged. Credits are valid until
+  fully used.
+notes: >-
+  Prices reflect the volume tiers published on the Vincario pricing pages; verify
+  current per-request rates and any plan structure on the provider site during
+  reconciliation. 10,000+ volumes are custom-quoted.
+sources:
+- https://vindecoder.eu/pricing/api
+- https://vincario.com/blog/vin-decoder-api-pricing/
+- https://vindecoder.eu/api
+plans:
+- id: vincario-free-trial
+  name: Free Trial
+  type: free
+  description: >-
+    20 free VIN lookups to evaluate the decode API, plus free Vehicle Info
+    (decodable-details) lookups.
+  entries:
+  - label: Trial VIN Lookups
+    name: trial_decodes
+    type: free
+    metric: requests
+    limit: 20
+    timeFrame: lifetime
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  - label: Vehicle Info
+    name: vehicle_info
+    type: free
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: VIN Decode
+  - name: Vehicle Info
+- id: vincario-vin-decode
+  name: VIN Decode
+  type: usage
+  description: >-
+    Volume-tiered per-request pricing for VIN decoding; price per request falls
+    as committed volume rises.
+  entries:
+  - label: 100 VINs
+    name: decode_100
+    type: usage
+    metric: requests
+    limit: 100
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: EUR 0.49 per VIN
+    userMultiplied: false
+  - label: 500 VINs
+    name: decode_500
+    type: usage
+    metric: requests
+    limit: 500
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: EUR 0.298 per VIN
+    userMultiplied: false
+  - label: 1,000 VINs
+    name: decode_1000
+    type: usage
+    metric: requests
+    limit: 1000
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: EUR 0.249 per VIN
+    userMultiplied: false
+  - label: 5,000 VINs
+    name: decode_5000
+    type: usage
+    metric: requests
+    limit: 5000
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: EUR 0.22 per VIN
+    userMultiplied: false
+  - label: 10,000+ VINs
+    name: decode_custom
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: custom pricing
+    userMultiplied: false
+  elements:
+  - name: VIN Decode
+- id: vincario-market-value
+  name: Vehicle Market Value
+  type: usage
+  description: >-
+    Volume-tiered per-request pricing for the Vehicle Market Value endpoint.
+  entries:
+  - label: 100 lookups
+    name: market_value_100
+    type: usage
+    metric: requests
+    limit: 100
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: EUR 1.99 per lookup
+    userMultiplied: false
+  - label: 500 lookups
+    name: market_value_500
+    type: usage
+    metric: requests
+    limit: 500
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: EUR 1.198 per lookup
+    userMultiplied: false
+  - label: 1,000 lookups
+    name: market_value_1000
+    type: usage
+    metric: requests
+    limit: 1000
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: EUR 0.999 per lookup
+    userMultiplied: false
+  - label: 5,000 lookups
+    name: market_value_5000
+    type: usage
+    metric: requests
+    limit: 5000
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: EUR 0.90 per lookup
+    userMultiplied: false
+  - label: 10,000+ lookups
+    name: market_value_custom
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: custom pricing
+    userMultiplied: false
+  elements:
+  - name: Vehicle Market Value
+- id: vincario-stolen-check
+  name: Stolen Check
+  type: usage
+  description: >-
+    Real-time stolen-vehicle check priced on the same volume-tiered structure as
+    Vehicle Market Value (EUR 1.99 down to EUR 0.90 per request with volume).
+  entries:
+  - label: Stolen Check
+    name: stolen_check
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: EUR 1.99-0.90 per request by volume
+    userMultiplied: false
+  elements:
+  - name: Stolen Check
+- id: vincario-enterprise
+  name: Enterprise / Custom
+  type: enterprise
+  description: >-
+    Custom pricing for high volumes (10,000+), OEM VIN Lookup, and VIN OCR
+    Scanner. Contact Vincario sales.
+  entries:
+  - label: Custom Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: High-Volume VIN Decode
+  - name: OEM VIN Lookup
+  - name: VIN OCR Scanner
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

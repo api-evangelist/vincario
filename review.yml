@@ -1,0 +1,66 @@
+aid: vincario
+name: Vincario
+review:
+  question: Does Vincario expose a documented public WebSocket API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. The Vincario vindecoder.eu API is a
+    synchronous, request/response REST service. There is no documented
+    streaming, Server-Sent Events (SSE), or WebSocket surface to model, so an
+    AsyncAPI artifact would not be factual.
+findings:
+  summary: |
+    Vincario does not publish a documented public WebSocket API. The
+    vindecoder.eu platform exposes only synchronous REST (HTTPS) endpoints
+    under https://api.vindecoder.eu/3.2. Every operation is a GET against a
+    path that carries the API key and a per-request SHA1 control sum as path
+    segments; responses are returned as JSON (or HTML). No realtime,
+    bidirectional, push, or streaming (ws:// or wss://) transport is
+    documented for decode, market value, stolen check, vehicle info, or
+    balance.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.vindecoder.eu/3.2
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the Vincario / vindecoder.eu API reference as of the review date.
+  authentication:
+    scheme: signed-path
+    note: |
+      API key (id) plus a per-request control sum equal to the first 10
+      characters of sha1("{lookup}|{id}|{apikey}|{secretkey}"), embedded as URL
+      path segments. The secret key is never transmitted; it is only used to
+      derive the control sum. For VIN-based endpoints {lookup} is the uppercased
+      VIN; for the balance endpoint {lookup} is the API key.
+  endpointsConfirmedRest:
+    - GET https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/decode/{vin}.json
+    - GET https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/vininfo/{vin}.json
+    - GET https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/vehicle-market-value/{vin}.json
+    - GET https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/stolencheck/{vin}.json
+    - GET https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/balance.json
+sources:
+  - url: https://vindecoder.eu/api
+    type: Documentation
+    note: Decode endpoint and control-sum auth (substr(sha1("$vin|$id|$apikey|$secretkey"),0,10)) documented with examples; base URL https://api.vindecoder.eu/3.2. All REST over HTTPS.
+  - url: https://vindecoder.eu/vehicle-market-value
+    type: Documentation
+    note: Vehicle Market Value endpoint returns price/odometer statistics; REST request/response.
+  - url: https://vincario.com/blog/vin-decoder-api-pricing/
+    type: Documentation
+    note: Volume-tiered per-request pricing; 60 VIN lookups/minute rate; invalid VINs not charged; 20 free trial lookups.
+  - url: https://apps.make.com/vincario-vindecoder
+    type: Documentation
+    note: Connector lists Decode, Vehicle Info (available details), Stolen Check, and Vehicle Market Value operations; all synchronous REST.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket, SSE, or other event-driven protocol surface exists. The API
+    is purely synchronous REST, so no AsyncAPI document was authored and the
+    apis.yml catalogs only REST/OpenAPI artifacts.

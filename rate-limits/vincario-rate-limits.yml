@@ -1,0 +1,56 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Vincario
+providerId: vincario
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- VIN
+- Vehicle Data
+- Automotive
+- VIN Decoder
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Vincario vindecoder.eu API enforces a documented per-account throughput
+  limit of 60 VIN lookups per minute. Total volume is bounded by purchased
+  credits/balance rather than by a daily or monthly request cap, and invalid VINs
+  are not charged. Per-endpoint throttling values beyond the 60/min decode rate
+  are not separately documented and are not reconciled in this artifact.
+notes: >-
+  Verify the current request-per-minute rate and any per-endpoint limits on the
+  Vincario API documentation during reconciliation; the credit balance, not a
+  fixed time-window quota, governs total usage.
+sources:
+- https://vindecoder.eu/api
+- https://vincario.com/blog/vin-decoder-api-pricing/
+responseCodes:
+  throttled: 429
+limits:
+- name: VIN Lookups Per Minute
+  scope: account
+  metric: requests
+  limit: 60
+  notes: Documented rate of 60 VIN lookups per minute per account.
+- name: Credit Balance
+  scope: account
+  metric: credits
+  limit: see purchased balance
+  notes: >-
+    Total usage is bounded by remaining account credits; check via the balance
+    endpoint. Invalid VINs are not charged.
+policies:
+- name: Pay-Per-Use Credits
+  description: >-
+    Usage is metered against a prepaid credit balance per service rather than a
+    fixed periodic quota.
+- name: Backoff Strategy
+  description: >-
+    Clients should implement exponential backoff with jitter and honor
+    Retry-After when throttled.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

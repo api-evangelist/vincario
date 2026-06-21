@@ -1,0 +1,104 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vincario VIN Decoder API",
+    "version": "3.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Decode",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Decode a VIN into a full vehicle specification.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/decode/{vin}.json"
+          },
+          "docs": "Decodes a 17-character VIN and returns the full vehicle specification. Control sum = substr(sha1(\"{VIN}|decode|{apikey}|{secretkey}\"),0,10)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Vehicle Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List the vehicle details available for a VIN.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/vininfo/{vin}.json"
+          },
+          "docs": "Returns the list of vehicle details that can be decoded for the VIN (free of charge). Control sum = substr(sha1(\"{VIN}|vininfo|{apikey}|{secretkey}\"),0,10)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Market Value",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get statistical market value for a vehicle.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/vehicle-market-value/{vin}.json"
+          },
+          "docs": "Returns statistical price and odometer data for matching vehicles on the market. Control sum = substr(sha1(\"{VIN}|vehicle-market-value|{apikey}|{secretkey}\"),0,10)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Stolen Check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check a VIN against stolen-vehicle databases.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/stolencheck/{vin}.json"
+          },
+          "docs": "Real-time check against national police stolen-vehicle databases and Vincario's own database. Control sum = substr(sha1(\"{VIN}|stolencheck|{apikey}|{secretkey}\"),0,10)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get remaining account balance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vindecoder.eu/3.2/{apikey}/{controlsum}/balance.json"
+          },
+          "docs": "Returns remaining credits per service. Control sum = substr(sha1(\"{apikey}|balance|{apikey}|{secretkey}\"),0,10)."
+        }
+      ]
+    }
+  ]
+}
