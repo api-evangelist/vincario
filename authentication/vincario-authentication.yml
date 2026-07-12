@@ -1,0 +1,20 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/vincario-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: signedPath
+  type: apiKey
+  in: query
+  parameter: controlsum
+  description: Path-signed authentication. The API key (id) and a per-request SHA1 control sum
+    are passed as URL path segments rather than headers or query parameters; this scheme is
+    declared as a placeholder because OpenAPI 3.0 cannot natively express path-segment-based
+    signed credentials. The control sum is `substr(sha1("{lookup}|{id}|{apikey}|{secretkey}"),
+    0, 10)`. The secret key is never sent over the wire.
+  sources:
+  - openapi/vincario-openapi.yml

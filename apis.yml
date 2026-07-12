@@ -102,6 +102,12 @@ apis:
   description: Returns the remaining API credits/balance for each service on the authenticated
     account.
 common:
+- type: VulnerabilityDisclosure
+  url: security/vincario-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/vincario-domain-security.yml
+- type: Authentication
+  url: authentication/vincario-authentication.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/vincario
 - type: Website
@@ -114,6 +120,8 @@ common:
   url: rate-limits/vincario-rate-limits.yml
 - type: FinOps
   url: finops/vincario-finops.yml
+- url: https://vincario.com/blog/feed/
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
