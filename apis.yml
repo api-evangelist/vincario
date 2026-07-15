@@ -102,6 +102,8 @@ apis:
   description: Returns the remaining API credits/balance for each service on the authenticated
     account.
 common:
+- type: AgenticAccess
+  url: agentic-access/vincario-agentic-access.yml
 - type: VulnerabilityDisclosure
   url: security/vincario-vulnerability-disclosure.yml
 - type: DomainSecurity
