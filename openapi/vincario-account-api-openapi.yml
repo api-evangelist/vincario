@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: Vincario VIN Decoder Account API
+  description: 'REST API for the vindecoder.eu service operated by Vincario. The API decodes a Vehicle Identification Number (VIN) into a full vehicle specification and also provides vehicle market value, real-time stolen-vehicle checks, the list of decodable vehicle details, and the remaining account balance.
+
+
+    Authentication uses an API key (id) and a secret key. Each request carries a per-request control sum in the URL path. The control sum is the first 10 characters of the SHA1 hash of the pipe-delimited string `{lookup}|{id}|{apikey}|{secretkey}`, where `{lookup}` is the uppercased VIN for VIN-based endpoints (decode, vininfo, vehicle-market-value, stolencheck) and the API key itself for the balance endpoint, and `{id}` is the endpoint identifier (for example `decode`, `vininfo`, `vehicle-market-value`, `stolencheck`, `balance`). The secret key is never transmitted; it is only used to derive the control sum. The path layout is `/{apikey}/{controlsum}/{id}/{vin}.json`.'
+  termsOfService: https://vindecoder.eu/terms
+  contact:
+    name: Vincario Support
+    url: https://vincario.com
+  version: '3.2'
+servers:
+- url: https://api.vindecoder.eu/3.2
+  description: Vincario VIN Decoder API v3.2
+security:
+- signedPath: []
+tags:
+- name: Account
+paths:
+  /{apikey}/{controlsum}/balance.json:
+    get:
+      operationId: getBalance
+      tags:
+      - Account
+      summary: Get remaining account balance.
+      description: Returns the remaining API credits/balance for each service on the authenticated account. The control sum is computed from `{apikey}|balance|{apikey}|{secretkey}` (the VIN slot is the API key because this endpoint is not VIN-scoped).
+      parameters:
+      - $ref: '#/components/parameters/ApiKey'
+      - $ref: '#/components/parameters/ControlSum'
+      responses:
+        '200':
+          description: Remaining balance per service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceResponse'
+        '403':
+          $ref: '#/components/responses/Error'
+components:
+  parameters:
+    ApiKey:
+      name: apikey
+      in: path
+      required: true
+      description: The account API key (id).
+      schema:
+        type: string
+    ControlSum:
+      name: controlsum
+      in: path
+      required: true
+      description: First 10 characters of `sha1("{lookup}|{id}|{apikey}|{secretkey}")`.
+      schema:
+        type: string
+        minLength: 10
+        maxLength: 10
+  responses:
+    Error:
+      description: Error response (invalid VIN, bad control sum, or insufficient balance).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+          example: Invalid VIN
+        code:
+          type: integer
+          description: Error code.
+          example: 400
+    BalanceResponse:
+      type: object
+      description: Remaining credits per available service.
+      properties:
+        balance:
+          type: object
+          additionalProperties:
+            type: number
+          example:
+            decode: 950
+            vehicle-market-value: 480
+            stolencheck: 480
+  securitySchemes:
+    signedPath:
+      type: apiKey
+      in: query
+      name: controlsum
+      description: Path-signed authentication. The API key (id) and a per-request SHA1 control sum are passed as URL path segments rather than headers or query parameters; this scheme is declared as a placeholder because OpenAPI 3.0 cannot natively express path-segment-based signed credentials. The control sum is `substr(sha1("{lookup}|{id}|{apikey}|{secretkey}"), 0, 10)`. The secret key is never sent over the wire.
