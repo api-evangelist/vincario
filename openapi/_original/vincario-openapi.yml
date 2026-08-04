@@ -1,0 +1,339 @@
+openapi: 3.0.1
+info:
+  title: Vincario VIN Decoder API
+  description: >-
+    REST API for the vindecoder.eu service operated by Vincario. The API decodes a
+    Vehicle Identification Number (VIN) into a full vehicle specification and also
+    provides vehicle market value, real-time stolen-vehicle checks, the list of
+    decodable vehicle details, and the remaining account balance.
+
+
+    Authentication uses an API key (id) and a secret key. Each request carries a
+    per-request control sum in the URL path. The control sum is the first 10
+    characters of the SHA1 hash of the pipe-delimited string
+    `{lookup}|{id}|{apikey}|{secretkey}`, where `{lookup}` is the uppercased VIN for
+    VIN-based endpoints (decode, vininfo, vehicle-market-value, stolencheck) and the
+    API key itself for the balance endpoint, and `{id}` is the endpoint identifier
+    (for example `decode`, `vininfo`, `vehicle-market-value`, `stolencheck`,
+    `balance`). The secret key is never transmitted; it is only used to derive the
+    control sum. The path layout is
+    `/{apikey}/{controlsum}/{id}/{vin}.json`.
+  termsOfService: https://vindecoder.eu/terms
+  contact:
+    name: Vincario Support
+    url: https://vincario.com
+  version: '3.2'
+servers:
+  - url: https://api.vindecoder.eu/3.2
+    description: Vincario VIN Decoder API v3.2
+security:
+  - signedPath: []
+paths:
+  /{apikey}/{controlsum}/decode/{vin}.json:
+    get:
+      operationId: decodeVin
+      tags:
+        - Decode
+      summary: Decode a VIN into a full vehicle specification.
+      description: >-
+        Decodes a 17-character VIN and returns the full vehicle specification
+        (make, model, model year, body, engine, fuel, transmission and additional
+        decoded attributes). The control sum is computed from
+        `{VIN}|decode|{apikey}|{secretkey}`.
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/ControlSum'
+        - $ref: '#/components/parameters/Vin'
+      responses:
+        '200':
+          description: Decoded vehicle specification.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DecodeResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+  /{apikey}/{controlsum}/vininfo/{vin}.json:
+    get:
+      operationId: vinInfo
+      tags:
+        - Vehicle Info
+      summary: List the vehicle details available for a VIN.
+      description: >-
+        Returns the list of vehicle details that can be decoded for the supplied
+        VIN. This informational lookup is free of charge. The control sum is
+        computed from `{VIN}|vininfo|{apikey}|{secretkey}`.
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/ControlSum'
+        - $ref: '#/components/parameters/Vin'
+      responses:
+        '200':
+          description: Available decodable details for the VIN.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VinInfoResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+  /{apikey}/{controlsum}/vehicle-market-value/{vin}.json:
+    get:
+      operationId: vehicleMarketValue
+      tags:
+        - Market Value
+      summary: Get statistical market value for a vehicle.
+      description: >-
+        Returns statistical data about the price and odometer of vehicles on the
+        market matching the decoded VIN, together with the input parameters used
+        for the computation. The control sum is computed from
+        `{VIN}|vehicle-market-value|{apikey}|{secretkey}`.
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/ControlSum'
+        - $ref: '#/components/parameters/Vin'
+      responses:
+        '200':
+          description: Market value statistics for the vehicle.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketValueResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+  /{apikey}/{controlsum}/stolencheck/{vin}.json:
+    get:
+      operationId: stolenCheck
+      tags:
+        - Stolen Check
+      summary: Check a VIN against stolen-vehicle databases.
+      description: >-
+        Performs a real-time check of the VIN against national police databases of
+        stolen vehicles (Czech Republic, Hungary, Lithuania, Romania, Slovenia,
+        Slovakia) and Vincario's own database. The control sum is computed from
+        `{VIN}|stolencheck|{apikey}|{secretkey}`.
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/ControlSum'
+        - $ref: '#/components/parameters/Vin'
+      responses:
+        '200':
+          description: Stolen-check result for the VIN.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StolenCheckResponse'
+        '400':
+          $ref: '#/components/responses/Error'
+        '403':
+          $ref: '#/components/responses/Error'
+  /{apikey}/{controlsum}/balance.json:
+    get:
+      operationId: getBalance
+      tags:
+        - Account
+      summary: Get remaining account balance.
+      description: >-
+        Returns the remaining API credits/balance for each service on the
+        authenticated account. The control sum is computed from
+        `{apikey}|balance|{apikey}|{secretkey}` (the VIN slot is the API key
+        because this endpoint is not VIN-scoped).
+      parameters:
+        - $ref: '#/components/parameters/ApiKey'
+        - $ref: '#/components/parameters/ControlSum'
+      responses:
+        '200':
+          description: Remaining balance per service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceResponse'
+        '403':
+          $ref: '#/components/responses/Error'
+components:
+  securitySchemes:
+    signedPath:
+      type: apiKey
+      in: query
+      name: controlsum
+      description: >-
+        Path-signed authentication. The API key (id) and a per-request SHA1
+        control sum are passed as URL path segments rather than headers or query
+        parameters; this scheme is declared as a placeholder because OpenAPI 3.0
+        cannot natively express path-segment-based signed credentials. The control
+        sum is `substr(sha1("{lookup}|{id}|{apikey}|{secretkey}"), 0, 10)`. The
+        secret key is never sent over the wire.
+  parameters:
+    ApiKey:
+      name: apikey
+      in: path
+      required: true
+      description: The account API key (id).
+      schema:
+        type: string
+    ControlSum:
+      name: controlsum
+      in: path
+      required: true
+      description: >-
+        First 10 characters of `sha1("{lookup}|{id}|{apikey}|{secretkey}")`.
+      schema:
+        type: string
+        minLength: 10
+        maxLength: 10
+    Vin:
+      name: vin
+      in: path
+      required: true
+      description: The 17-character Vehicle Identification Number (uppercase).
+      schema:
+        type: string
+        minLength: 11
+        maxLength: 17
+        example: WF0MXXGBWM8R43240
+  responses:
+    Error:
+      description: Error response (invalid VIN, bad control sum, or insufficient balance).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    DecodeResponse:
+      type: object
+      properties:
+        decode:
+          type: array
+          description: List of decoded label/value pairs describing the vehicle.
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+                example: Make
+              value:
+                type: string
+                example: Ford
+              id:
+                type: integer
+                example: 1
+        price:
+          type: number
+          description: Number of credits charged for the request.
+          example: 1
+        balance:
+          type: object
+          description: Remaining balance per service after the request.
+          additionalProperties:
+            type: number
+    VinInfoResponse:
+      type: object
+      properties:
+        vininfo:
+          type: array
+          description: List of vehicle details that can be decoded for the VIN.
+          items:
+            type: object
+            properties:
+              label:
+                type: string
+              id:
+                type: integer
+    MarketValueResponse:
+      type: object
+      properties:
+        vin:
+          type: string
+          example: WF0MXXGBWM8R43240
+        price:
+          type: object
+          description: Statistical price data for matching vehicles on the market.
+          properties:
+            currency:
+              type: string
+              example: EUR
+            count:
+              type: integer
+              example: 124
+            market_price_min:
+              type: number
+              example: 6500
+            market_price_max:
+              type: number
+              example: 12900
+            market_price_mean:
+              type: number
+              example: 9100
+        odometer:
+          type: object
+          description: Statistical odometer data for matching vehicles on the market.
+          properties:
+            unit:
+              type: string
+              example: km
+            count:
+              type: integer
+              example: 124
+            odometer_min:
+              type: number
+              example: 45000
+            odometer_max:
+              type: number
+              example: 280000
+            odometer_mean:
+              type: number
+              example: 160000
+        input:
+          type: object
+          description: Input parameters used for the market value computation.
+    StolenCheckResponse:
+      type: object
+      properties:
+        vin:
+          type: string
+          example: WF0MXXGBWM8R43240
+        stolen:
+          type: boolean
+          description: Whether the VIN was found in any stolen-vehicle database.
+          example: false
+        records:
+          type: array
+          description: Matching stolen-vehicle records, if any.
+          items:
+            type: object
+            properties:
+              source:
+                type: string
+                description: The database/source where the record was found.
+                example: Czech Republic Police
+              date:
+                type: string
+                format: date
+    BalanceResponse:
+      type: object
+      description: Remaining credits per available service.
+      properties:
+        balance:
+          type: object
+          additionalProperties:
+            type: number
+          example:
+            decode: 950
+            vehicle-market-value: 480
+            stolencheck: 480
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+          example: Invalid VIN
+        code:
+          type: integer
+          description: Error code.
+          example: 400

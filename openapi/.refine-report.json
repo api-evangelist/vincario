@@ -1,0 +1,22 @@
+{
+  "provider": "vincario",
+  "sources": [
+    "vincario-account-api-openapi.yml",
+    "vincario-decode-api-openapi.yml",
+    "vincario-market-value-api-openapi.yml",
+    "vincario-stolen-check-api-openapi.yml",
+    "vincario-vehicle-info-api-openapi.yml"
+  ],
+  "outputs": [
+    "vincario-account-api-openapi.yml",
+    "vincario-decode-api-openapi.yml",
+    "vincario-market-value-api-openapi.yml",
+    "vincario-stolen-check-api-openapi.yml",
+    "vincario-vehicle-info-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
