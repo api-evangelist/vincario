@@ -28,7 +28,7 @@ tags:
 - Market Value
 created: '2026-06-21'
 modified: '2026-06-21'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: vincario:vincario-account-api
   name: Vincario Account API
