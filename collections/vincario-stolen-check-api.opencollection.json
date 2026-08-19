@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vincario VIN Decoder Account Stolen Check API",
+    "version": "3.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "controlsum",
+      "value": "{{controlsum}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stolen Check",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Check a VIN against stolen-vehicle databases.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vindecoder.eu/3.2/:apikey/:controlsum/stolencheck/:vin.json",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "path",
+                "description": "The account API key (id)."
+              },
+              {
+                "name": "controlsum",
+                "value": "",
+                "type": "path",
+                "description": "First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+              },
+              {
+                "name": "vin",
+                "value": "",
+                "type": "path",
+                "description": "The 17-character Vehicle Identification Number (uppercase)."
+              }
+            ]
+          },
+          "docs": "Performs a real-time check of the VIN against national police databases of stolen vehicles (Czech Republic, Hungary, Lithuania, Romania, Slovenia, Slovakia) and Vincario's own database. The control sum is computed from `{VIN}|stolencheck|{apikey}|{secretkey}`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

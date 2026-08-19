@@ -1,0 +1,51 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vincario VIN Decoder Account API",
+    "version": "3.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "controlsum",
+      "value": "{{controlsum}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get remaining account balance.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vindecoder.eu/3.2/:apikey/:controlsum/balance.json",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "path",
+                "description": "The account API key (id)."
+              },
+              {
+                "name": "controlsum",
+                "value": "",
+                "type": "path",
+                "description": "First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+              }
+            ]
+          },
+          "docs": "Returns the remaining API credits/balance for each service on the authenticated account. The control sum is computed from `{apikey}|balance|{apikey}|{secretkey}` (the VIN slot is the API key because this endpoint is not VIN-scoped)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Vincario VIN Decoder Account Market Value API",
+    "version": "3.2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "controlsum",
+      "value": "{{controlsum}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Market Value",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get statistical market value for a vehicle.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.vindecoder.eu/3.2/:apikey/:controlsum/vehicle-market-value/:vin.json",
+            "params": [
+              {
+                "name": "apikey",
+                "value": "",
+                "type": "path",
+                "description": "The account API key (id)."
+              },
+              {
+                "name": "controlsum",
+                "value": "",
+                "type": "path",
+                "description": "First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+              },
+              {
+                "name": "vin",
+                "value": "",
+                "type": "path",
+                "description": "The 17-character Vehicle Identification Number (uppercase)."
+              }
+            ]
+          },
+          "docs": "Returns statistical data about the price and odometer of vehicles on the market matching the decoded VIN, together with the input parameters used for the computation. The control sum is computed from `{VIN}|vehicle-market-value|{apikey}|{secretkey}`."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

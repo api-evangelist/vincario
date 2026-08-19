@@ -1,0 +1,286 @@
+{
+  "item": [
+    {
+      "id": "513e00c9-61c0-42f1-9c07-799f2a38b4b3",
+      "name": "Decode",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "30d933c8-299c-48a6-8a36-6dc02f3d50e9",
+          "name": "Decode a VIN into a full vehicle specification.",
+          "request": {
+            "name": "Decode a VIN into a full vehicle specification.",
+            "description": {
+              "content": "Decodes a 17-character VIN and returns the full vehicle specification (make, model, model year, body, engine, fuel, transmission and additional decoded attributes). The control sum is computed from `{VIN}|decode|{apikey}|{secretkey}`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":apikey",
+                ":controlsum",
+                "decode",
+                "{{vin}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "apikey",
+                  "description": "(Required) The account API key (id)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "controlsum",
+                  "description": "(Required) First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d35f8c29-9203-40b5-a55d-c718f0fd4c53",
+              "name": "Decoded vehicle specification.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":apikey",
+                    ":controlsum",
+                    "decode",
+                    "{{vin}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "controlsum",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apikey",
+                      "description": "(Required) The account API key (id)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "controlsum",
+                      "description": "(Required) First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"decode\": [\n    {\n      \"label\": \"Make\",\n      \"value\": \"Ford\",\n      \"id\": 1\n    },\n    {\n      \"label\": \"Make\",\n      \"value\": \"Ford\",\n      \"id\": 1\n    }\n  ],\n  \"price\": 1,\n  \"balance\": {\n    \"key_0\": 5334.355345782271\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "271e99e0-6265-4a10-91f9-0817e04d5508",
+              "name": "Error response (invalid VIN, bad control sum, or insufficient balance).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":apikey",
+                    ":controlsum",
+                    "decode",
+                    "{{vin}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "controlsum",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apikey",
+                      "description": "(Required) The account API key (id)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "controlsum",
+                      "description": "(Required) First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid VIN\",\n  \"code\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c6ca83e-adca-44f5-91f8-ed02b80bb1d7",
+              "name": "Error response (invalid VIN, bad control sum, or insufficient balance).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":apikey",
+                    ":controlsum",
+                    "decode",
+                    "{{vin}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "controlsum",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apikey",
+                      "description": "(Required) The account API key (id)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "controlsum",
+                      "description": "(Required) First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid VIN\",\n  \"code\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vindecoder.eu/3.2",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The 17-character Vehicle Identification Number (uppercase).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "vin"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "controlsum"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "19bf20ac-8faa-490c-8cf7-b4227e083b9b",
+    "name": "Vincario VIN Decoder Account Decode API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the vindecoder.eu service operated by Vincario. The API decodes a Vehicle Identification Number (VIN) into a full vehicle specification and also provides vehicle market value, real-time stolen-vehicle checks, the list of decodable vehicle details, and the remaining account balance.\n\nAuthentication uses an API key (id) and a secret key. Each request carries a per-request control sum in the URL path. The control sum is the first 10 characters of the SHA1 hash of the pipe-delimited string `{lookup}|{id}|{apikey}|{secretkey}`, where `{lookup}` is the uppercased VIN for VIN-based endpoints (decode, vininfo, vehicle-market-value, stolencheck) and the API key itself for the balance endpoint, and `{id}` is the endpoint identifier (for example `decode`, `vininfo`, `vehicle-market-value`, `stolencheck`, `balance`). The secret key is never transmitted; it is only used to derive the control sum. The path layout is `/{apikey}/{controlsum}/{id}/{vin}.json`.\n\nContact Support:\n Name: Vincario Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "item": [
+    {
+      "id": "96bf1831-488b-4c59-a4df-08ac4889c5de",
+      "name": "Stolen Check",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "765ed905-7ad7-453b-a980-1ee66fe86e60",
+          "name": "Check a VIN against stolen-vehicle databases.",
+          "request": {
+            "name": "Check a VIN against stolen-vehicle databases.",
+            "description": {
+              "content": "Performs a real-time check of the VIN against national police databases of stolen vehicles (Czech Republic, Hungary, Lithuania, Romania, Slovenia, Slovakia) and Vincario's own database. The control sum is computed from `{VIN}|stolencheck|{apikey}|{secretkey}`.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":apikey",
+                ":controlsum",
+                "stolencheck",
+                "{{vin}}.json"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "apikey",
+                  "description": "(Required) The account API key (id)."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "controlsum",
+                  "description": "(Required) First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "684a20c8-3c9c-44eb-bc51-3ccb16e9bced",
+              "name": "Stolen-check result for the VIN.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":apikey",
+                    ":controlsum",
+                    "stolencheck",
+                    "{{vin}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "controlsum",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apikey",
+                      "description": "(Required) The account API key (id)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "controlsum",
+                      "description": "(Required) First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"vin\": \"WF0MXXGBWM8R43240\",\n  \"stolen\": false,\n  \"records\": [\n    {\n      \"source\": \"Czech Republic Police\",\n      \"date\": \"2026-03-18\"\n    },\n    {\n      \"source\": \"Czech Republic Police\",\n      \"date\": \"2022-05-28\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dba88ae9-0bfe-44f5-8f47-e3b5302543c6",
+              "name": "Error response (invalid VIN, bad control sum, or insufficient balance).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":apikey",
+                    ":controlsum",
+                    "stolencheck",
+                    "{{vin}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "controlsum",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apikey",
+                      "description": "(Required) The account API key (id)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "controlsum",
+                      "description": "(Required) First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid VIN\",\n  \"code\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "aa28fbcc-adbd-44cd-9a79-5d59e6fa85c3",
+              "name": "Error response (invalid VIN, bad control sum, or insufficient balance).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":apikey",
+                    ":controlsum",
+                    "stolencheck",
+                    "{{vin}}.json"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "controlsum",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "apikey",
+                      "description": "(Required) The account API key (id)."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "controlsum",
+                      "description": "(Required) First 10 characters of `sha1(\"{lookup}|{id}|{apikey}|{secretkey}\")`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Invalid VIN\",\n  \"code\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.vindecoder.eu/3.2",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) The 17-character Vehicle Identification Number (uppercase).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "vin"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "controlsum"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8c922a82-7095-44e3-bfda-5436305f4b6c",
+    "name": "Vincario VIN Decoder Account Stolen Check API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the vindecoder.eu service operated by Vincario. The API decodes a Vehicle Identification Number (VIN) into a full vehicle specification and also provides vehicle market value, real-time stolen-vehicle checks, the list of decodable vehicle details, and the remaining account balance.\n\nAuthentication uses an API key (id) and a secret key. Each request carries a per-request control sum in the URL path. The control sum is the first 10 characters of the SHA1 hash of the pipe-delimited string `{lookup}|{id}|{apikey}|{secretkey}`, where `{lookup}` is the uppercased VIN for VIN-based endpoints (decode, vininfo, vehicle-market-value, stolencheck) and the API key itself for the balance endpoint, and `{id}` is the endpoint identifier (for example `decode`, `vininfo`, `vehicle-market-value`, `stolencheck`, `balance`). The secret key is never transmitted; it is only used to derive the control sum. The path layout is `/{apikey}/{controlsum}/{id}/{vin}.json`.\n\nContact Support:\n Name: Vincario Support",
+      "type": "text/plain"
+    }
+  }
+}
