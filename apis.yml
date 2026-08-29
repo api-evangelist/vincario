@@ -6,6 +6,18 @@ description: Vincario operates the vindecoder.eu VIN Decoder API, a global REST 
   that decodes a Vehicle Identification Number (VIN) into a full vehicle specification
   and provides vehicle market value, stolen-vehicle checks, and account balance. Requests
   are authenticated with an API key plus a SHA1 control sum embedded in the URL path.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
