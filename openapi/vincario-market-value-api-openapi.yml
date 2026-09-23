@@ -1,10 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Vincario VIN Decoder Account Market Value API
-  description: 'REST API for the vindecoder.eu service operated by Vincario. The API decodes a Vehicle Identification Number (VIN) into a full vehicle specification and also provides vehicle market value, real-time stolen-vehicle checks, the list of decodable vehicle details, and the remaining account balance.
-
-
-    Authentication uses an API key (id) and a secret key. Each request carries a per-request control sum in the URL path. The control sum is the first 10 characters of the SHA1 hash of the pipe-delimited string `{lookup}|{id}|{apikey}|{secretkey}`, where `{lookup}` is the uppercased VIN for VIN-based endpoints (decode, vininfo, vehicle-market-value, stolencheck) and the API key itself for the balance endpoint, and `{id}` is the endpoint identifier (for example `decode`, `vininfo`, `vehicle-market-value`, `stolencheck`, `balance`). The secret key is never transmitted; it is only used to derive the control sum. The path layout is `/{apikey}/{controlsum}/{id}/{vin}.json`.'
+  title: Vincario VIN Decoder Market Value API
+  description: REST API for the vindecoder.eu service operated by Vincario.
   termsOfService: https://vindecoder.eu/terms
   contact:
     name: Vincario Support
@@ -23,7 +20,7 @@ paths:
       operationId: vehicleMarketValue
       tags:
       - Market Value
-      summary: Get statistical market value for a vehicle.
+      summary: Get statistical market value for a vehicle
       description: Returns statistical data about the price and odometer of vehicles on the market matching the decoded VIN, together with the input parameters used for the computation. The control sum is computed from `{VIN}|vehicle-market-value|{apikey}|{secretkey}`.
       parameters:
       - $ref: '#/components/parameters/ApiKey'
@@ -41,6 +38,40 @@ paths:
         '403':
           $ref: '#/components/responses/Error'
 components:
+  parameters:
+    ControlSum:
+      name: controlsum
+      in: path
+      required: true
+      description: First 10 characters of `sha1("{lookup}|{id}|{apikey}|{secretkey}")`.
+      schema:
+        type: string
+        minLength: 10
+        maxLength: 10
+    ApiKey:
+      name: apikey
+      in: path
+      required: true
+      description: The account API key (id).
+      schema:
+        type: string
+    Vin:
+      name: vin
+      in: path
+      required: true
+      description: The 17-character Vehicle Identification Number (uppercase).
+      schema:
+        type: string
+        minLength: 11
+        maxLength: 17
+        example: WF0MXXGBWM8R43240
+  responses:
+    Error:
+      description: Error response (invalid VIN, bad control sum, or insufficient balance).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     MarketValueResponse:
       type: object
@@ -100,40 +131,6 @@ components:
           type: integer
           description: Error code.
           example: 400
-  parameters:
-    ApiKey:
-      name: apikey
-      in: path
-      required: true
-      description: The account API key (id).
-      schema:
-        type: string
-    Vin:
-      name: vin
-      in: path
-      required: true
-      description: The 17-character Vehicle Identification Number (uppercase).
-      schema:
-        type: string
-        minLength: 11
-        maxLength: 17
-        example: WF0MXXGBWM8R43240
-    ControlSum:
-      name: controlsum
-      in: path
-      required: true
-      description: First 10 characters of `sha1("{lookup}|{id}|{apikey}|{secretkey}")`.
-      schema:
-        type: string
-        minLength: 10
-        maxLength: 10
-  responses:
-    Error:
-      description: Error response (invalid VIN, bad control sum, or insufficient balance).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     signedPath:
       type: apiKey

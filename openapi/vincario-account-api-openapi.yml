@@ -1,10 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Vincario VIN Decoder Account API
-  description: 'REST API for the vindecoder.eu service operated by Vincario. The API decodes a Vehicle Identification Number (VIN) into a full vehicle specification and also provides vehicle market value, real-time stolen-vehicle checks, the list of decodable vehicle details, and the remaining account balance.
-
-
-    Authentication uses an API key (id) and a secret key. Each request carries a per-request control sum in the URL path. The control sum is the first 10 characters of the SHA1 hash of the pipe-delimited string `{lookup}|{id}|{apikey}|{secretkey}`, where `{lookup}` is the uppercased VIN for VIN-based endpoints (decode, vininfo, vehicle-market-value, stolencheck) and the API key itself for the balance endpoint, and `{id}` is the endpoint identifier (for example `decode`, `vininfo`, `vehicle-market-value`, `stolencheck`, `balance`). The secret key is never transmitted; it is only used to derive the control sum. The path layout is `/{apikey}/{controlsum}/{id}/{vin}.json`.'
+  description: REST API for the vindecoder.eu service operated by Vincario.
   termsOfService: https://vindecoder.eu/terms
   contact:
     name: Vincario Support
@@ -23,7 +20,7 @@ paths:
       operationId: getBalance
       tags:
       - Account
-      summary: Get remaining account balance.
+      summary: Get remaining account balance
       description: Returns the remaining API credits/balance for each service on the authenticated account. The control sum is computed from `{apikey}|balance|{apikey}|{secretkey}` (the VIN slot is the API key because this endpoint is not VIN-scoped).
       parameters:
       - $ref: '#/components/parameters/ApiKey'
@@ -38,6 +35,30 @@ paths:
         '403':
           $ref: '#/components/responses/Error'
 components:
+  schemas:
+    BalanceResponse:
+      type: object
+      description: Remaining credits per available service.
+      properties:
+        balance:
+          type: object
+          additionalProperties:
+            type: number
+          example:
+            decode: 950
+            vehicle-market-value: 480
+            stolencheck: 480
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+          example: Invalid VIN
+        code:
+          type: integer
+          description: Error code.
+          example: 400
   parameters:
     ApiKey:
       name: apikey
@@ -62,30 +83,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-  schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-          example: Invalid VIN
-        code:
-          type: integer
-          description: Error code.
-          example: 400
-    BalanceResponse:
-      type: object
-      description: Remaining credits per available service.
-      properties:
-        balance:
-          type: object
-          additionalProperties:
-            type: number
-          example:
-            decode: 950
-            vehicle-market-value: 480
-            stolencheck: 480
   securitySchemes:
     signedPath:
       type: apiKey
