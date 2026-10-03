@@ -97,7 +97,24 @@ components:
         input:
           type: object
           description: Input parameters used for the market value computation.
+  responses:
+    Error:
+      description: Error response (invalid VIN, bad control sum, or insufficient balance).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
+    Vin:
+      name: vin
+      in: path
+      required: true
+      description: The 17-character Vehicle Identification Number (uppercase).
+      schema:
+        type: string
+        minLength: 11
+        maxLength: 17
+        example: WF0MXXGBWM8R43240
     ControlSum:
       name: controlsum
       in: path
@@ -114,23 +131,6 @@ components:
       description: The account API key (id).
       schema:
         type: string
-    Vin:
-      name: vin
-      in: path
-      required: true
-      description: The 17-character Vehicle Identification Number (uppercase).
-      schema:
-        type: string
-        minLength: 11
-        maxLength: 17
-        example: WF0MXXGBWM8R43240
-  responses:
-    Error:
-      description: Error response (invalid VIN, bad control sum, or insufficient balance).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     signedPath:
       type: apiKey

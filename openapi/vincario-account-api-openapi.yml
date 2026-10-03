@@ -59,6 +59,13 @@ components:
             decode: 950
             vehicle-market-value: 480
             stolencheck: 480
+  responses:
+    Error:
+      description: Error response (invalid VIN, bad control sum, or insufficient balance).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   parameters:
     ControlSum:
       name: controlsum
@@ -76,13 +83,6 @@ components:
       description: The account API key (id).
       schema:
         type: string
-  responses:
-    Error:
-      description: Error response (invalid VIN, bad control sum, or insufficient balance).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     signedPath:
       type: apiKey
