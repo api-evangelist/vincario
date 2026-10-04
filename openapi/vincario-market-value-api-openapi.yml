@@ -38,6 +38,40 @@ paths:
         '403':
           $ref: '#/components/responses/Error'
 components:
+  parameters:
+    Vin:
+      name: vin
+      in: path
+      required: true
+      description: The 17-character Vehicle Identification Number (uppercase).
+      schema:
+        type: string
+        minLength: 11
+        maxLength: 17
+        example: WF0MXXGBWM8R43240
+    ApiKey:
+      name: apikey
+      in: path
+      required: true
+      description: The account API key (id).
+      schema:
+        type: string
+    ControlSum:
+      name: controlsum
+      in: path
+      required: true
+      description: First 10 characters of `sha1("{lookup}|{id}|{apikey}|{secretkey}")`.
+      schema:
+        type: string
+        minLength: 10
+        maxLength: 10
+  responses:
+    Error:
+      description: Error response (invalid VIN, bad control sum, or insufficient balance).
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
     ErrorResponse:
       type: object
@@ -97,40 +131,6 @@ components:
         input:
           type: object
           description: Input parameters used for the market value computation.
-  responses:
-    Error:
-      description: Error response (invalid VIN, bad control sum, or insufficient balance).
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-  parameters:
-    Vin:
-      name: vin
-      in: path
-      required: true
-      description: The 17-character Vehicle Identification Number (uppercase).
-      schema:
-        type: string
-        minLength: 11
-        maxLength: 17
-        example: WF0MXXGBWM8R43240
-    ControlSum:
-      name: controlsum
-      in: path
-      required: true
-      description: First 10 characters of `sha1("{lookup}|{id}|{apikey}|{secretkey}")`.
-      schema:
-        type: string
-        minLength: 10
-        maxLength: 10
-    ApiKey:
-      name: apikey
-      in: path
-      required: true
-      description: The account API key (id).
-      schema:
-        type: string
   securitySchemes:
     signedPath:
       type: apiKey
