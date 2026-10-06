@@ -2,10 +2,12 @@ aid: vincario
 url: https://raw.githubusercontent.com/api-evangelist/vincario/refs/heads/main/apis.yml
 name: Vincario
 kind: company
-description: Vincario operates the vindecoder.eu VIN Decoder API, a global REST service
-  that decodes a Vehicle Identification Number (VIN) into a full vehicle specification
-  and provides vehicle market value, stolen-vehicle checks, and account balance. Requests
-  are authenticated with an API key plus a SHA1 control sum embedded in the URL path.
+description: Vincario (vincario.com, formerly vindecoder.eu) provides a REST API, currently version 3.2, that
+  decodes a Vehicle Identification Number (VIN) into a vehicle specification and provides OEM VIN lookup, OEM
+  service history, vehicle market value, stolen-vehicle checks, value lists (enums) for makes, models and other
+  attributes, and the account credit balance. Requests are authenticated with an API key plus a control sum in the
+  URL path. Vincario also runs a public MCP server (com.vincario/vehicle-data) and offers VIN OCR scanning and UK
+  license plate lookup services, whose APIs are not yet publicly documented.
 deliveryModel:
   model: saas
   open_source: false
@@ -40,89 +42,131 @@ tags:
 - VIN Decoder
 - Market Value
 created: '2026-06-21'
-modified: '2026-06-21'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
-- aid: vincario:vincario-account-api
-  name: Vincario Account API
-  description: The Account API from Vincario — 1 operation(s) for account.
-  humanURL: https://vindecoder.eu/api
-  baseURL: https://api.vindecoder.eu/3.2
+- aid: vincario:vincario-vin-decoder-api
+  name: Vincario VIN Decoder API
+  description: Decode a VIN into a vehicle specification (VIN Decode) and list which fields can be decoded for a VIN (VIN Decode Info).
+  humanURL: 'https://vincario.com/vin-decoder/'
+  baseURL: https://api.vincario.com/3.2
   tags:
-  - Account
+  - VIN Decoder
   properties:
   - type: OpenAPI
-    url: openapi/vincario-account-api-openapi.yml
+    url: openapi/vincario-vin-decoder-api-openapi.yml
   - type: Documentation
-    url: https://vindecoder.eu/api
+    url: 'https://vincario.com/api-docs/3.2/#operations-VIN_Decoder-VIN_Decode'
+  - type: Documentation
+    url: 'https://vincario.com/api-docs/3.2/#operations-VIN_Decoder-VIN_Decode_Info'
   - type: APIReference
-    url: https://vindecoder.eu/api
-  - type: Documentation
-    url: https://vindecoder.eu/vehicle-market-value
-- aid: vincario:vincario-decode-api
-  name: Vincario Decode API
-  description: The Decode API from Vincario — 1 operation(s) for decode.
-  humanURL: https://vindecoder.eu/api
-  baseURL: https://api.vindecoder.eu/3.2
+    url: https://vincario.com/api-docs/3.2/
+  - type: Website
+    url: https://vincario.com/vin-decoder/
+- aid: vincario:vincario-oem-vin-lookup-api
+  name: Vincario OEM VIN Lookup API
+  description: Look up manufacturer (OEM) data for a VIN.
+  humanURL: 'https://vincario.com/api-docs/3.2/#operations-OEM_VIN_Lookup-OEM_VIN_Lookup'
+  baseURL: https://api.vincario.com/3.2
   tags:
-  - Decode
+  - OEM VIN Lookup
   properties:
   - type: OpenAPI
-    url: openapi/vincario-decode-api-openapi.yml
+    url: openapi/vincario-oem-vin-lookup-api-openapi.yml
   - type: Documentation
-    url: https://vindecoder.eu/api
+    url: 'https://vincario.com/api-docs/3.2/#operations-OEM_VIN_Lookup-OEM_VIN_Lookup'
   - type: APIReference
-    url: https://vindecoder.eu/api
+    url: https://vincario.com/api-docs/3.2/
+- aid: vincario:vincario-oem-service-history-api
+  name: Vincario OEM Service History API
+  description: Retrieve manufacturer (OEM) service history for a VIN.
+  humanURL: 'https://vincario.com/api-docs/3.2/#operations-OEM_Service_History-OEM_Service_History'
+  baseURL: https://api.vincario.com/3.2
+  tags:
+  - OEM Service History
+  properties:
+  - type: OpenAPI
+    url: openapi/vincario-oem-service-history-api-openapi.yml
   - type: Documentation
-    url: https://vindecoder.eu/vehicle-market-value
-- aid: vincario:vincario-market-value-api
-  name: Vincario Market Value API
-  description: The Market Value API from Vincario — 1 operation(s) for market value.
-  humanURL: https://vindecoder.eu/api
-  baseURL: https://api.vindecoder.eu/3.2
+    url: 'https://vincario.com/api-docs/3.2/#operations-OEM_Service_History-OEM_Service_History'
+  - type: APIReference
+    url: https://vincario.com/api-docs/3.2/
+- aid: vincario:vincario-vehicle-market-value-api
+  name: Vincario Vehicle Market Value API
+  description: Estimate the market value of a vehicle by VIN.
+  humanURL: 'https://vincario.com/vehicle-market-value/'
+  baseURL: https://api.vincario.com/3.2
   tags:
   - Market Value
   properties:
   - type: OpenAPI
-    url: openapi/vincario-market-value-api-openapi.yml
+    url: openapi/vincario-vehicle-market-value-api-openapi.yml
   - type: Documentation
-    url: https://vindecoder.eu/api
+    url: 'https://vincario.com/api-docs/3.2/#operations-Vehicle_Market_Value-Vehicle_Market_Value'
   - type: APIReference
-    url: https://vindecoder.eu/api
-  - type: Documentation
-    url: https://vindecoder.eu/vehicle-market-value
+    url: https://vincario.com/api-docs/3.2/
+  - type: Website
+    url: https://vincario.com/vehicle-market-value/
 - aid: vincario:vincario-stolen-check-api
   name: Vincario Stolen Check API
-  description: The Stolen Check API from Vincario — 1 operation(s) for stolen check.
-  humanURL: https://vindecoder.eu/api
-  baseURL: https://api.vindecoder.eu/3.2
+  description: Check whether a VIN appears in supported stolen-vehicle databases.
+  humanURL: 'https://vincario.com/stolen-vehicle-check/'
+  baseURL: https://api.vincario.com/3.2
   tags:
   - Stolen Check
   properties:
   - type: OpenAPI
     url: openapi/vincario-stolen-check-api-openapi.yml
   - type: Documentation
-    url: https://vindecoder.eu/api
+    url: 'https://vincario.com/api-docs/3.2/#operations-Stolen_Check-Stolen_Check'
   - type: APIReference
-    url: https://vindecoder.eu/api
-  - type: Documentation
-    url: https://vindecoder.eu/vehicle-market-value
-- aid: vincario:vincario-vehicle-info-api
-  name: Vincario Vehicle Info API
-  description: The Vehicle Info API from Vincario — 1 operation(s) for vehicle info.
-  humanURL: https://vindecoder.eu/api
-  baseURL: https://api.vindecoder.eu/3.2
+    url: https://vincario.com/api-docs/3.2/
+  - type: Website
+    url: https://vincario.com/stolen-vehicle-check/
+- aid: vincario:vincario-get-balance-api
+  name: Vincario Credit Balance API
+  description: Return the remaining credit balance of the account.
+  humanURL: 'https://vincario.com/api-docs/3.2/#operations-Get_Balance-Get_Balance'
+  baseURL: https://api.vincario.com/3.2
   tags:
-  - Vehicle Info
+  - Account
   properties:
   - type: OpenAPI
-    url: openapi/vincario-vehicle-info-api-openapi.yml
+    url: openapi/vincario-get-balance-api-openapi.yml
   - type: Documentation
-    url: https://vindecoder.eu/api
+    url: 'https://vincario.com/api-docs/3.2/#operations-Get_Balance-Get_Balance'
   - type: APIReference
-    url: https://vindecoder.eu/api
+    url: https://vincario.com/api-docs/3.2/
+- aid: vincario:vincario-enums-api
+  name: Vincario Enums API
+  description: Value lists for vehicle makes, models, make and model combinations, body, color, drive, fuel, product type and transmission.
+  humanURL: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Make'
+  baseURL: https://api.vincario.com/3.2
+  tags:
+  - Enums
+  properties:
+  - type: OpenAPI
+    url: openapi/vincario-enums-api-openapi.yml
   - type: Documentation
-    url: https://vindecoder.eu/vehicle-market-value
+    url: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Make'
+  - type: Documentation
+    url: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Model'
+  - type: Documentation
+    url: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Vehicle'
+  - type: Documentation
+    url: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Body'
+  - type: Documentation
+    url: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Color'
+  - type: Documentation
+    url: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Drive'
+  - type: Documentation
+    url: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Fuel'
+  - type: Documentation
+    url: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Product_Type'
+  - type: Documentation
+    url: 'https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Transmission'
+  - type: APIReference
+    url: https://vincario.com/api-docs/3.2/
 common:
 - type: AgenticAccess
   url: agentic-access/vincario-agentic-access.yml
@@ -137,7 +181,23 @@ common:
 - type: Website
   url: https://vincario.com
 - type: Documentation
-  url: https://vindecoder.eu/api
+  url: https://vincario.com/api-docs/
+- type: APIReference
+  url: https://vincario.com/api-docs/3.2/
+- type: OpenAPI
+  url: https://vincario.com/api-docs/openapi/3.2
+  name: Vincario API 3.2 OpenAPI (provider-published, saved verbatim in openapi/_original/vincario-openapi.yml)
+- type: MCPServer
+  url: mcp/vincario-mcp.yml
+  name: Vincario MCP server (com.vincario/vehicle-data, https://mcp.vincario.com/mcp)
+- type: GitHubRepository
+  url: https://github.com/Vincario/MCP-vincario
+- type: Features
+  url: https://vincario.com/vin-ocr-scanner/
+  name: VIN OCR Scanner (API exists; public API documentation not yet published)
+- type: Features
+  url: https://vincario.com/license-plate-lookup/
+  name: License Plate Lookup (UK registration plates)
 - type: Plans
   url: plans/vincario-plans-pricing.yml
 - type: RateLimits
@@ -149,3 +209,21 @@ common:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-correction-request:
+  requested: '2026-10-06'
+  source:
+  - https://github.com/api-evangelist/vincario/issues/1
+  request: 'Issue #1 (JakubJachym, Vincario): base domain changed from vindecoder.eu to vincario.com; main API docs https://vincario.com/api-docs/
+    (redirects to the latest version, 3.2) replace https://vindecoder.eu/api; per-API documentation and landing URLs for VIN Decode Info, VIN
+    Decode, OEM VIN Lookup, OEM Service History, Vehicle Market Value, Stolen Check, Credit Balance and the enum endpoints; public MCP server
+    https://mcp.vincario.com/mcp (com.vincario/vehicle-data, github.com/Vincario/MCP-vincario); VIN OCR scanner and UK license plate lookup.'
+  applied: '2026-10-06'
+  applied_note: 'Verified live 2026-10-06: vincario.com, /api-docs/ (redirects to /api-docs/3.2/), every landing page in the issue, the MCP repo
+    and the blog feed answer 200; an invented path 404s. The 3.2 docs page declares its spec route api-docs/openapi/3.2, which serves
+    text/yaml (OpenAPI 3.0.1, "VIN Decoder" 3.2, server https://api.vincario.com/, 16 operations) - saved byte-identical as
+    openapi/_original/vincario-openapi.yml, replacing the vindecoder.eu-era document, then split by tag (7 APIs) and standardized; the 5 old
+    per-tag files and their aids (account, decode, market-value, vehicle-info) are gone, stolen-check kept. MCP: initialize + tools/list
+    answered anonymously (Vincario VIN Tools 1.28.1; vin_decode, vin_decode_info, stolen_check, vehicle_market_value) - recorded in
+    mcp/vincario-mcp.yml. VIN OCR and license plate lookup recorded as product pages only (no public API docs yet). The issue''s per-operation
+    doc URLs are hash anchors on one page, so they are recorded as given, not probed individually. Derived Postman/OpenCollection collections
+    built from the old documents were removed; they regenerate from the new split on the next pipeline run.'

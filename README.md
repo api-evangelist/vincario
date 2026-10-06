@@ -64,7 +64,7 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Vincario operates the vindecoder.eu VIN Decoder API, a global REST service that decodes a Vehicle Identification Number (VIN) into a full vehicle specification and provides vehicle market value, stolen-vehicle checks, and account balance. Requests are authenticated with an API key plus a SHA1 control sum embedded in the URL path.
+Vincario (vincario.com, formerly vindecoder.eu) provides a REST API, currently version 3.2, that decodes a Vehicle Identification Number (VIN) into a vehicle specification and provides OEM VIN lookup, OEM service history, vehicle market value, stolen-vehicle checks, value lists (enums) for makes, models and other attributes, and the account credit balance. Requests are authenticated with an API key plus a control sum in the URL path. Vincario also runs a public MCP server (com.vincario/vehicle-data) and offers VIN OCR scanning and UK license plate lookup services, whose APIs are not yet publicly documented.
 
 **APIs.json:** [https://raw.githubusercontent.com/api-evangelist/vincario/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/vincario/refs/heads/main/apis.yml)
 
@@ -79,123 +79,164 @@ Vincario operates the vindecoder.eu VIN Decoder API, a global REST service that 
 ## Timestamps
 
 - **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- **Modified:** 2026-10-06
 
 ## APIs
 
-### Vincario VIN Decode API
+### Vincario VIN Decoder API
 
-Decodes a 17-character VIN into a full vehicle specification (make, model, model year, body, engine, fuel, transmission and ~40 European-market data points) returned as JSON or HTML.
+Decode a VIN into a vehicle specification (VIN Decode) and list which fields can be decoded for a VIN (VIN Decode Info).
 
-- **Human URL:** [https://vindecoder.eu/api](https://vindecoder.eu/api)
-- **Base URL:** `https://api.vindecoder.eu/3.2`
+- **Human URL:** [https://vincario.com/vin-decoder/](https://vincario.com/vin-decoder/)
+- **Base URL:** `https://api.vincario.com/3.2`
 
 #### Tags
 
-- VIN
-- Decode
-- Vehicle Specification
+- VIN Decoder
 
 #### Properties
 
-- [Documentation](https://vindecoder.eu/api)
-- [API Reference](https://vindecoder.eu/api)
-- [OpenAPI](openapi/vincario-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/vincario.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/vincario.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [OpenAPI](openapi/vincario-vin-decoder-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-VIN_Decoder-VIN_Decode)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-VIN_Decoder-VIN_Decode_Info)
+- [API Reference](https://vincario.com/api-docs/3.2/)
+- [Website](https://vincario.com/vin-decoder/)
+
+### Vincario OEM VIN Lookup API
+
+Look up manufacturer (OEM) data for a VIN.
+
+- **Human URL:** [https://vincario.com/api-docs/3.2/#operations-OEM_VIN_Lookup-OEM_VIN_Lookup](https://vincario.com/api-docs/3.2/#operations-OEM_VIN_Lookup-OEM_VIN_Lookup)
+- **Base URL:** `https://api.vincario.com/3.2`
+
+#### Tags
+
+- OEM VIN Lookup
+
+#### Properties
+
+- [OpenAPI](openapi/vincario-oem-vin-lookup-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-OEM_VIN_Lookup-OEM_VIN_Lookup)
+- [API Reference](https://vincario.com/api-docs/3.2/)
+
+### Vincario OEM Service History API
+
+Retrieve manufacturer (OEM) service history for a VIN.
+
+- **Human URL:** [https://vincario.com/api-docs/3.2/#operations-OEM_Service_History-OEM_Service_History](https://vincario.com/api-docs/3.2/#operations-OEM_Service_History-OEM_Service_History)
+- **Base URL:** `https://api.vincario.com/3.2`
+
+#### Tags
+
+- OEM Service History
+
+#### Properties
+
+- [OpenAPI](openapi/vincario-oem-service-history-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-OEM_Service_History-OEM_Service_History)
+- [API Reference](https://vincario.com/api-docs/3.2/)
 
 ### Vincario Vehicle Market Value API
 
-Returns statistical market data (price and odometer) for vehicles matching a decoded VIN, including the input parameters used for the computation.
+Estimate the market value of a vehicle by VIN.
 
-- **Human URL:** [https://vindecoder.eu/vehicle-market-value](https://vindecoder.eu/vehicle-market-value)
-- **Base URL:** `https://api.vindecoder.eu/3.2`
+- **Human URL:** [https://vincario.com/vehicle-market-value/](https://vincario.com/vehicle-market-value/)
+- **Base URL:** `https://api.vincario.com/3.2`
 
 #### Tags
 
 - Market Value
-- Pricing
-- Valuation
 
 #### Properties
 
-- [Documentation](https://vindecoder.eu/vehicle-market-value)
-- [OpenAPI](openapi/vincario-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/vincario.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/vincario.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [OpenAPI](openapi/vincario-vehicle-market-value-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Vehicle_Market_Value-Vehicle_Market_Value)
+- [API Reference](https://vincario.com/api-docs/3.2/)
+- [Website](https://vincario.com/vehicle-market-value/)
 
 ### Vincario Stolen Check API
 
-Performs a real-time check of a VIN against national police databases of stolen vehicles (Czech Republic, Hungary, Lithuania, Romania, Slovenia, Slovakia) and Vincario's own database of stolen vehicles.
+Check whether a VIN appears in supported stolen-vehicle databases.
 
-- **Human URL:** [https://vindecoder.eu/api](https://vindecoder.eu/api)
-- **Base URL:** `https://api.vindecoder.eu/3.2`
+- **Human URL:** [https://vincario.com/stolen-vehicle-check/](https://vincario.com/stolen-vehicle-check/)
+- **Base URL:** `https://api.vincario.com/3.2`
 
 #### Tags
 
 - Stolen Check
-- Fraud
-- Police Database
 
 #### Properties
 
-- [Documentation](https://vindecoder.eu/api)
-- [OpenAPI](openapi/vincario-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/vincario.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/vincario.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [OpenAPI](openapi/vincario-stolen-check-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Stolen_Check-Stolen_Check)
+- [API Reference](https://vincario.com/api-docs/3.2/)
+- [Website](https://vincario.com/stolen-vehicle-check/)
 
-### Vincario Vehicle Info API
+### Vincario Credit Balance API
 
-Returns the list of vehicle details that can be decoded for a given VIN by the decode service; this informational lookup is free of charge.
+Return the remaining credit balance of the account.
 
-- **Human URL:** [https://vindecoder.eu/api](https://vindecoder.eu/api)
-- **Base URL:** `https://api.vindecoder.eu/3.2`
-
-#### Tags
-
-- Vehicle Info
-- Metadata
-- Capabilities
-
-#### Properties
-
-- [Documentation](https://vindecoder.eu/api)
-- [OpenAPI](openapi/vincario-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/vincario.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/vincario.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Vincario Account Balance API
-
-Returns the remaining API credits/balance for each service on the authenticated account.
-
-- **Human URL:** [https://vindecoder.eu/api](https://vindecoder.eu/api)
-- **Base URL:** `https://api.vindecoder.eu/3.2`
+- **Human URL:** [https://vincario.com/api-docs/3.2/#operations-Get_Balance-Get_Balance](https://vincario.com/api-docs/3.2/#operations-Get_Balance-Get_Balance)
+- **Base URL:** `https://api.vincario.com/3.2`
 
 #### Tags
 
 - Account
-- Balance
-- Credits
 
 #### Properties
 
-- [Documentation](https://vindecoder.eu/api)
-- [OpenAPI](openapi/vincario-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/vincario.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/vincario.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [OpenAPI](openapi/vincario-get-balance-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Get_Balance-Get_Balance)
+- [API Reference](https://vincario.com/api-docs/3.2/)
+
+### Vincario Enums API
+
+Value lists for vehicle makes, models, make and model combinations, body, color, drive, fuel, product type and transmission.
+
+- **Human URL:** [https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Make](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Make)
+- **Base URL:** `https://api.vincario.com/3.2`
+
+#### Tags
+
+- Enums
+
+#### Properties
+
+- [OpenAPI](openapi/vincario-enums-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Make)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Model)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Vehicle)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Body)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Color)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Drive)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Fuel)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Product_Type)
+- [Documentation](https://vincario.com/api-docs/3.2/#operations-Enums-Enum_Transmission)
+- [API Reference](https://vincario.com/api-docs/3.2/)
 
 ## Authentication
 
-Every request is a GET against a path that carries the API key (id) and a per-request control sum as path segments. The control sum is the first 10 characters of `sha1("{lookup}|{id}|{apikey}|{secretkey}")`, where `{lookup}` is the uppercased VIN for VIN-based endpoints (and the API key for the balance endpoint) and `{id}` is the endpoint identifier (`decode`, `vininfo`, `vehicle-market-value`, `stolencheck`, `balance`). The secret key is never transmitted — it is only used locally to derive the control sum. Path layout: `/{apikey}/{controlsum}/{id}/{vin}.json`.
+Every request is a GET against `https://api.vincario.com/3.2/{API_KEY}/{CONTROL_SUM}/...` that carries the API key and a per-request control sum as path segments. Per the provider's OpenAPI, the control sum is the first 10 characters of the SHA1 hash of the lookup value (for example the VIN), the operation id (for example `decode`), the API key and the secret key, pipe-delimited in that order. The secret key is never transmitted.
 
 ## Common Properties
 
+- [AgenticAccess](agentic-access/vincario-agentic-access.yml)
+- [VulnerabilityDisclosure](security/vincario-vulnerability-disclosure.yml)
+- [DomainSecurity](security/vincario-domain-security.yml)
+- [Authentication](authentication/vincario-authentication.yml)
 - [LinkedIn](https://www.linkedin.com/company/vincario)
 - [Website](https://vincario.com)
-- [Documentation](https://vindecoder.eu/api)
+- [Documentation](https://vincario.com/api-docs/)
+- [APIReference](https://vincario.com/api-docs/3.2/)
+- [Vincario API 3.2 OpenAPI (provider-published, saved verbatim in openapi/_original/vincario-openapi.yml)](https://vincario.com/api-docs/openapi/3.2)
+- [Vincario MCP server (com.vincario/vehicle-data, https://mcp.vincario.com/mcp)](mcp/vincario-mcp.yml)
+- [GitHubRepository](https://github.com/Vincario/MCP-vincario)
+- [VIN OCR Scanner (API exists; public API documentation not yet published)](https://vincario.com/vin-ocr-scanner/)
+- [License Plate Lookup (UK registration plates)](https://vincario.com/license-plate-lookup/)
 - [Plans](plans/vincario-plans-pricing.yml)
-- [Rate Limits](rate-limits/vincario-rate-limits.yml)
-- [Fin Ops](finops/vincario-finops.yml)
+- [RateLimits](rate-limits/vincario-rate-limits.yml)
+- [FinOps](finops/vincario-finops.yml)
+- [Blog](https://vincario.com/blog/feed/)
 
 ## Maintainers
 

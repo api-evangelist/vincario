@@ -4,11 +4,13 @@
     "_original/vincario-openapi.yml"
   ],
   "outputs": [
-    "vincario-account-api-openapi.yml",
-    "vincario-decode-api-openapi.yml",
-    "vincario-market-value-api-openapi.yml",
+    "vincario-enums-api-openapi.yml",
+    "vincario-get-balance-api-openapi.yml",
+    "vincario-oem-service-history-api-openapi.yml",
+    "vincario-oem-vin-lookup-api-openapi.yml",
     "vincario-stolen-check-api-openapi.yml",
-    "vincario-vehicle-info-api-openapi.yml"
+    "vincario-vin-decoder-api-openapi.yml",
+    "vincario-vehicle-market-value-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
@@ -16,18 +18,13 @@
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "vincario-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
-    "vincario-openapi.yml: declared missing tag: Account",
-    "vincario-openapi.yml: declared missing tag: Decode",
-    "vincario-openapi.yml: declared missing tag: Market Value",
+    "vincario-openapi.yml: declared missing tag: Enums",
+    "vincario-openapi.yml: declared missing tag: Get Balance",
+    "vincario-openapi.yml: declared missing tag: OEM Service History",
+    "vincario-openapi.yml: declared missing tag: OEM VIN Lookup",
     "vincario-openapi.yml: declared missing tag: Stolen Check",
-    "vincario-openapi.yml: declared missing tag: Vehicle Info",
-    "apis.yml register: already-registered"
+    "vincario-openapi.yml: declared missing tag: VIN Decoder",
+    "vincario-openapi.yml: declared missing tag: Vehicle Market Value"
   ],
-  "skipped": [
-    "vincario-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "vincario-decode-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "vincario-market-value-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "vincario-stolen-check-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "vincario-vehicle-info-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }

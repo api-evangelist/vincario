@@ -1,0 +1,31 @@
+generated: '2026-10-06'
+method: probed
+source:
+- url: https://mcp.vincario.com/mcp
+  status: 200
+  content_type: text/event-stream
+- https://github.com/Vincario/MCP-vincario
+status: live
+server:
+  name: com.vincario/vehicle-data
+  serverInfo: Vincario VIN Tools 1.28.1
+  transport: streamable-http
+  url: https://mcp.vincario.com/mcp
+  repository: https://github.com/Vincario/MCP-vincario
+  instructions: VIN decode, decode info, market value, and stolen check via Vincario API v3.2
+deployment:
+  mode: remote
+  endpoint: https://mcp.vincario.com/mcp
+  verified: probed
+  checked: '2026-10-06'
+  source: GitHub issue api-evangelist/vincario#1 and the server.json in Vincario/MCP-vincario (remotes[0] streamable-http); initialize
+    and tools/list answered anonymously
+tools:
+- name: vin_decode
+  description: Decode a VIN and return detailed information about the vehicle.
+- name: vin_decode_info
+  description: List which fields are available for decoding a given VIN (free endpoint).
+- name: stolen_check
+  description: Check if a VIN appears in supported police/Vincario stolen databases.
+- name: vehicle_market_value
+  description: Vehicle Market Value for a VIN.
