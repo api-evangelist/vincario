@@ -224,3 +224,55 @@ plans:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - free
+  - metered
+  - subscription
+  units:
+  - negotiated
+  - request
+  plans:
+  - name: Free Trial
+    access: free
+    model: free
+    model_how: derived
+    units:
+    - request
+    periods:
+    - month
+    - one-time
+  - name: VIN Decode
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Vehicle Market Value
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Stolen Check
+    access: other
+    model: metered
+    model_how: stated
+    units:
+    - request
+    periods:
+    - per-use
+  - name: Enterprise / Custom
+    access: enterprise
+    model: subscription
+    model_how: derived
+    units:
+    - negotiated
+    periods:
+    - year
