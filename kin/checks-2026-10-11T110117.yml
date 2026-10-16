@@ -2,16 +2,16 @@
 kin_checks:
   slug: vincario
   schema_version: 0.23.0
-  scored_at: '2026-10-03'
-  run_ts: 2026-10-03T024842
+  scored_at: '2026-10-11'
+  run_ts: 2026-10-11T110117
   note: Actionable checks (missed + partial) in `checks`, plus the ids that did not
     apply in `na`. Everything else in rubric/scoring-0.23.0.yml was earned; counts
     below let you verify that.
   counts:
     total: 153
     earned: 17
-    partial: 21
-    missed: 84
+    partial: 26
+    missed: 79
     na: 31
   checks:
   - id: newsroom_present
@@ -26,21 +26,11 @@ kin_checks:
     status: missed
   - id: apis_json_self_hosted
     status: missed
-  - id: openapi_3_2
-    status: missed
-    detail: 0 of 5 openapi documents pass; credited at 90% because of their provenance
-      (unknown)
   - id: openapi_3_1
     status: missed
     detail: 0 of 5 openapi documents pass; credited at 90% because of their provenance
       (unknown)
-  - id: examples_present
-    status: missed
   - id: components_reuse
-    status: missed
-    detail: 0 of 5 openapi documents pass; credited at 90% because of their provenance
-      (unknown)
-  - id: credentials_not_in_query
     status: missed
     detail: 0 of 5 openapi documents pass; credited at 90% because of their provenance
       (unknown)
@@ -168,11 +158,7 @@ kin_checks:
     status: missed
   - id: upsert_declared_conflict
     status: missed
-  - id: mcp_server
-    status: missed
   - id: error_semantics
-    status: missed
-  - id: openapi_examples
     status: missed
   - id: event_surface_described
     status: missed
@@ -195,10 +181,15 @@ kin_checks:
   - id: contract_present
     status: partial
     earned: 18.0
+  - id: openapi_3_2
+    status: partial
+    earned: 3.6
+    detail: 4 of 5 openapi documents pass; credited at 90% because of their provenance
+      (unknown)
   - id: openapi_3_0
     status: partial
-    earned: 2.7
-    detail: 5 of 5 openapi documents pass; credited at 90% because of their provenance
+    earned: 0.54
+    detail: 1 of 5 openapi documents pass; credited at 90% because of their provenance
       (unknown)
   - id: info_complete
     status: partial
@@ -243,20 +234,28 @@ kin_checks:
     earned: 3.6
     detail: 5 of 5 openapi documents pass; credited at 90% because of their provenance
       (unknown)
+  - id: examples_present
+    status: partial
+    earned: 0.72
   - id: security_schemes_defined
     status: partial
-    earned: 3.6
-    detail: 5 of 5 openapi documents pass; credited at 90% because of their provenance
+    earned: 2.88
+    detail: 4 of 5 openapi documents pass; credited at 90% because of their provenance
       (unknown)
   - id: security_applied
     status: partial
-    earned: 2.7
-    detail: 5 of 5 openapi documents pass; credited at 90% because of their provenance
+    earned: 2.16
+    detail: 4 of 5 openapi documents pass; credited at 90% because of their provenance
       (unknown)
   - id: oauth_flows_current
     status: partial
     earned: 3.6
     detail: 5 of 5 openapi documents pass; credited at 90% because of their provenance
+      (unknown)
+  - id: credentials_not_in_query
+    status: partial
+    earned: 0.54
+    detail: 1 of 5 openapi documents pass; credited at 90% because of their provenance
       (unknown)
   - id: oauth_scopes_enumerated
     status: partial
@@ -276,14 +275,22 @@ kin_checks:
     status: partial
     earned: 2.5
     detail: 'authorship: derived'
+  - id: mcp_server
+    status: partial
+    earned: 4.32
+    detail: 'grade: documented'
   - id: auth_clarity
     status: partial
     earned: 3.5
     detail: 'grade: bearer'
-  - id: rate_limit_signal
+  - id: openapi_examples
     status: partial
     earned: 3.5
-    detail: 'grade: documented'
+    detail: 'grade: partial'
+  - id: rate_limit_signal
+    status: partial
+    earned: 0.88
+    detail: 'grade: derived'
   na:
   - asyncapi_3_x
   - channels_defined
