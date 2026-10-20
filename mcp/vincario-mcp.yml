@@ -18,8 +18,8 @@ deployment:
   endpoint: https://mcp.vincario.com/mcp
   verified: probed
   checked: '2026-10-06'
-  source: GitHub issue api-evangelist/vincario#1 and the server.json in Vincario/MCP-vincario (remotes[0] streamable-http); initialize
-    and tools/list answered anonymously
+  source: GitHub issue api-evangelist/vincario#1 and the server.json in Vincario/MCP-vincario (remotes[0]
+    streamable-http); initialize and tools/list answered anonymously
 tools:
 - name: vin_decode
   description: Decode a VIN and return detailed information about the vehicle.
@@ -29,3 +29,28 @@ tools:
   description: Check if a VIN appears in supported police/Vincario stolen databases.
 - name: vehicle_market_value
   description: Vehicle Market Value for a VIN.
+tool_quality:
+  tool_count: 4
+  tokens_total: 567
+  tokens_per_tool_median: 124
+  heavy_tools: []
+  heavy_tool_count: 0
+  params_total: 6
+  params_undescribed: 6
+  params_described_pct: 0.0
+  tools_with_undescribed_params: 4
+  tools_annotated: 0
+  annotated_pct: 0.0
+  state_changing_unhinted: []
+  tools_missing_schema: 0
+  short_descriptions: 0
+  duplicate_descriptions: 0
+  duplicate_names: 0
+  nonportable_names: []
+  output_schema_count: 4
+  token_estimate: chars/3.6 of each compact tool definition
+  source: mcp/vincario-mcp-tools.json
+  measured: '2026-10-20'
+  scored: false
+  note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
+    from Glimind's agent-readiness audit.

@@ -1,0 +1,166 @@
+{
+  "endpoint": "https://mcp.vincario.com/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "Vincario VIN Tools",
+    "version": "1.28.1"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "vin_decode",
+        "title": "Vin Decode",
+        "description": "Decode a VIN and return detailed information about the vehicle.",
+        "inputSchema": {
+          "properties": {
+            "vin": {
+              "title": "Vin",
+              "type": "string"
+            }
+          },
+          "required": [
+            "vin"
+          ],
+          "title": "vin_decodeArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "additionalProperties": true,
+              "title": "Result",
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "vin_decodeOutput",
+          "type": "object"
+        }
+      },
+      {
+        "name": "vin_decode_info",
+        "title": "Vin Decode Info",
+        "description": "List which fields are available for decoding a given VIN (free endpoint).",
+        "inputSchema": {
+          "properties": {
+            "vin": {
+              "title": "Vin",
+              "type": "string"
+            }
+          },
+          "required": [
+            "vin"
+          ],
+          "title": "vin_decode_infoArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "additionalProperties": true,
+              "title": "Result",
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "vin_decode_infoOutput",
+          "type": "object"
+        }
+      },
+      {
+        "name": "stolen_check",
+        "title": "Stolen Check",
+        "description": "Check if a VIN appears in supported police/Vincario stolen databases.",
+        "inputSchema": {
+          "properties": {
+            "vin": {
+              "title": "Vin",
+              "type": "string"
+            }
+          },
+          "required": [
+            "vin"
+          ],
+          "title": "stolen_checkArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "additionalProperties": true,
+              "title": "Result",
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "stolen_checkOutput",
+          "type": "object"
+        }
+      },
+      {
+        "name": "vehicle_market_value",
+        "title": "Vehicle Market Value",
+        "description": "Vehicle Market Value for a VIN. Accepts query parameters: odometer (int), odometer_unit (str).Pass them via 'params' dictionary.",
+        "inputSchema": {
+          "properties": {
+            "vin": {
+              "title": "Vin",
+              "type": "string"
+            },
+            "odometer": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Odometer"
+            },
+            "odometer_unit": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Odometer Unit"
+            }
+          },
+          "required": [
+            "vin"
+          ],
+          "title": "vehicle_market_valueArguments",
+          "type": "object"
+        },
+        "outputSchema": {
+          "properties": {
+            "result": {
+              "additionalProperties": true,
+              "title": "Result",
+              "type": "object"
+            }
+          },
+          "required": [
+            "result"
+          ],
+          "title": "vehicle_market_valueOutput",
+          "type": "object"
+        }
+      }
+    ]
+  }
+}
