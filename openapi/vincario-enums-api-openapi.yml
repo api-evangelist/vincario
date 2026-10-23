@@ -484,3 +484,9 @@ paths:
 externalDocs:
   description: Vincario API Documentation
   url: https://vincario.com/api-docs/3.2/
+x-provenance:
+  method: harvested
+  publisher: Vincario
+  source: https://vincario.com/api-docs/openapi/3.2/
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
